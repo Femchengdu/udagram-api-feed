@@ -15,7 +15,7 @@ spec:
         app: feed
     spec:
       containers:
-      - name: udagram-api-feed
+      - name: feed-svc
         image: rdevcd2020/udagram-api-feed
         ports:
         - containerPort: 8080
