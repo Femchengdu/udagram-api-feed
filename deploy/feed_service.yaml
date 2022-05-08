@@ -3,9 +3,9 @@ kind: Service
 metadata:
   labels:
     app: feed
-  name: feed-svc
+  name: backend-feed
   namespace: default
-  selfLink: /api/v1/namespaces/default/services/feed-svc
+  selfLink: /api/v1/namespaces/default/services/backend-feed
 spec:
   ports:
   - port: 8080
