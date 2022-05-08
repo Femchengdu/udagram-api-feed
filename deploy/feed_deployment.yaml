@@ -1,22 +1,68 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: feed
+  name: backend-feed
   labels:
-    app: feed
+    app: backend-feed
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: feed
+      app: backend-feed
   template:
     metadata:
       labels:
-        app: feed
+        app: backend-feed
     spec:
       containers:
-      - name: feed-svc
+      - name: backend-feed
         image: rdevcd2020/udagram-api-feed
+        env:
+        - name: AWS_PROFILE
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: AWS_PROFILE
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: AWS_REGION
+        - name: AWS_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: AWS_BUCKET
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: POSTGRES_HOST
+        - name: POSTGRES_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: POSTGRES_DATABASE
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: POSTGRES_PASSWORD
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: k8s-env-secret
+              key: JWT_SECRET
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: k8s-config-map
+              key: URL
         ports:
         - containerPort: 8080
     
